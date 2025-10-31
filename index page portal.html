@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+    <title>Admin Dashboard - JobConnect</title>
+    <link rel="stylesheet" href="job portal css.css">
+    <script>script.js</script>
+</head>
+<body class="dashboard-body">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <div class="dashboard-nav">
+            <div class="nav-brand">
+                <h2>JobConnect Admin</h2>
+            </div>
+            <div class="nav-user">
+                <div class="user-info">
+                    <span class="user-name" id="adminName">Sarah Wilson</span>
+                    <span class="user-role">HR Manager</span>
+                </div>
+                <div class="user-avatar" onclick="toggleUserMenu()">
+                    <span>SW</span>
+                </div>
+                <div class="user-menu" id="userMenu">
+                    <a href="profile.html">Profile Settings</a>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-item active" onclick="showSection('overview')">
+                    <span class="nav-icon">📊</span>
+                    Overview
+                </a>
+                <a href="#job-postings" class="nav-item" onclick="showSection('job-postings')">
+                    <span class="nav-icon">📝</span>
+                    Job Postings
+                </a>
+                <a href="#applications" class="nav-item" onclick="showSection('applications')">
+                    <span class="nav-icon">📄</span>
+                    Applications
+                </a>
+                <a href="#candidates" class="nav-item" onclick="showSection('candidates')">
+                    <span class="nav-icon">👥</span>
+                    Candidates
+                </a>
+                <a href="#analytics" class="nav-item" onclick="showSection('analytics')">
+                    <span class="nav-icon">📈</span>
+                    Analytics
+                </a>
+                <a href="#settings" class="nav-item" onclick="showSection('settings')">
+                    <span class="nav-icon">⚙️</span>
+                    Settings
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Overview Section -->
+            <section id="overview" class="dashboard-section active">
+                <div class="section-header">
+                    <h2>Admin Overview</h2>
+                    <p>Monitor your recruitment activities and performance metrics.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-info">
+                            <h3 id="activeJobs">24</h3>
+                            <p>Active Job Postings</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📄</div>
+                        <div class="stat-info">
+                            <h3 id="totalApplications">156</h3>
+                            <p>Total Applications</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <h3 id="candidatesHired">8</h3>
+                            <p>Candidates Hired</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📞</div>
+                        <div class="stat-info">
+                            <h3 id="interviewsScheduled">12</h3>
+                            <p>Interviews Scheduled</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Recent Applications</h3>
+                        <div class="application-list">
+                            <div class="application-item">
+                                <div class="application-info">
+                                    <h4>John Smith</h4>
+                                    <p>Applied for: Frontend Developer</p>
+                                    <span class="application-date">2 hours ago</span>
+                                </div>
+                                <div class="application-actions">
+                                    <button class="btn btn-sm btn-outline">Review</button>
+                                    <button class="btn btn-sm btn-primary">Schedule Interview</button>
+                                </div>
+                            </div>
+                            <div class="application-item">
+                                <div class="application-info">
+                                    <h4>Emily Johnson</h4>
+                                    <p>Applied for: UX Designer</p>
+                                    <span class="application-date">4 hours ago</span>
+                                </div>
+                                <div class="application-actions">
+                                    <button class="btn btn-sm btn-outline">Review</button>
+                                    <button class="btn btn-sm btn-primary">Schedule Interview</button>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#applications" class="view-all-link" onclick="showSection('applications')">View All Applications</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>Top Performing Jobs</h3>
+                        <div class="job-performance">
+                            <div class="performance-item">
+                                <h4>Senior React Developer</h4>
+                                <p>45 applications • 12 interviews</p>
+                                <div class="performance-bar">
+                                    <div class="performance-fill" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="performance-item">
+                                <h4>Product Manager</h4>
+                                <p>32 applications • 8 interviews</p>
+                                <div class="performance-bar">
+                                    <div class="performance-fill" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Job Postings Section -->
+            <section id="job-postings" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Job Postings Management</h2>
+                    <button class="btn btn-primary" onclick="openModal('newJobModal')">Post New Job</button>
+                </div>
+
+                <div class="job-postings-filter">
+                    <button class="filter-btn active" onclick="filterJobs('all')">All Jobs (24)</button>
+                    <button class="filter-btn" onclick="filterJobs('active')">Active (18)</button>
+                    <button class="filter-btn" onclick="filterJobs('draft')">Draft (4)</button>
+                    <button class="filter-btn" onclick="filterJobs('closed')">Closed (2)</button>
+                </div>
+
+                <div class="job-postings-list">
+                    <div class="job-posting-card">
+                        <div class="job-posting-header">
+                            <h3>Frontend Developer</h3>
+                            <span class="status-badge status-active">Active</span>
+                        </div>
+                        <p class="job-department">Engineering Department</p>
+                        <p class="job-posted">Posted 5 days ago • Expires in 25 days</p>
+                        <div class="job-stats">
+                            <span class="stat">23 Applications</span>
+                            <span class="stat">5 Interviews</span>
+                            <span class="stat">156 Views</span>
+                        </div>
+                        <div class="job-posting-actions">
+                            <button class="btn btn-outline btn-sm">Edit</button>
+                            <button class="btn btn-outline btn-sm">View Applications</button>
+                            <button class="btn btn-danger btn-sm">Close</button>
+                        </div>
+                    </div>
+
+                    <div class="job-posting-card">
+                        <div class="job-posting-header">
+                            <h3>UX Designer</h3>
+                            <span class="status-badge status-active">Active</span>
+                        </div>
+                        <p class="job-department">Design Department</p>
+                        <p class="job-posted">Posted 3 days ago • Expires in 27 days</p>
+                        <div class="job-stats">
+                            <span class="stat">18 Applications</span>
+                            <span class="stat">3 Interviews</span>
+                            <span class="stat">89 Views</span>
+                        </div>
+                        <div class="job-posting-actions">
+                            <button class="btn btn-outline btn-sm">Edit</button>
+                            <button class="btn btn-outline btn-sm">View Applications</button>
+                            <button class="btn btn-danger btn-sm">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applications Section -->
+            <section id="applications" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Application Management</h2>
+                    <p>Review and manage candidate applications</p>
+                </div>
+
+                <div class="applications-filter">
+                    <select class="filter-select">
+                        <option>All Positions</option>
+                        <option>Frontend Developer</option>
+                        <option>UX Designer</option>
+                        <option>Product Manager</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>All Status</option>
+                        <option>New</option>
+                        <option>Under Review</option>
+                        <option>Interview</option>
+                        <option>Hired</option>
+                        <option>Rejected</option>
+                    </select>
+                    <input type="text" placeholder="Search candidates..." class="search-input">
+                </div>
+
+                <div class="applications-table">
+                    <div class="table-header">
+                        <div class="table-cell">Candidate</div>
+                        <div class="table-cell">Position</div>
+                        <div class="table-cell">Applied Date</div>
+                        <div class="table-cell">Status</div>
+                        <div class="table-cell">Actions</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">
+                            <div class="candidate-info">
+                                <div class="candidate-avatar">JS</div>
+                                <div>
+                                    <h4>John Smith</h4>
+                                    <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9a3a6a1a7e7baa4a0bda189aca4a8a0a5e7aaa6a4">[email&#160;protected]</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-cell">Frontend Developer</div>
+                        <div class="table-cell">Mar 15, 2024</div>
+                        <div class="table-cell">
+                            <span class="status-badge status-interview">Interview</span>
+                        </div>
+                        <div class="table-cell">
+                            <button class="btn btn-sm btn-outline">View Profile</button>
+                            <button class="btn btn-sm btn-primary">Schedule</button>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">
+                            <div class="candidate-info">
+                                <div class="candidate-avatar">EJ</div>
+                                <div>
+                                    <h4>Emily Johnson</h4>
+                                    <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="31545c585d481f5b71545c50585d1f525e5c">[email&#160;protected]</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-cell">UX Designer</div>
+                        <div class="table-cell">Mar 14, 2024</div>
+                        <div class="table-cell">
+                            <span class="status-badge status-pending">Under Review</span>
+                        </div>
+                        <div class="table-cell">
+                            <button class="btn btn-sm btn-outline">View Profile</button>
+                            <button class="btn btn-sm btn-success">Accept</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Candidates Section -->
+            <section id="candidates" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Candidate Database</h2>
+                    <p>Search and manage your candidate pool</p>
+                </div>
+
+                <div class="candidate-search">
+                    <input type="text" placeholder="Search by name, skills, or location..." class="search-input">
+                    <select class="filter-select">
+                        <option>All Skills</option>
+                        <option>JavaScript</option>
+                        <option>React</option>
+                        <option>Python</option>
+                        <option>Design</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>All Locations</option>
+                        <option>San Francisco</option>
+                        <option>New York</option>
+                        <option>Remote</option>
+                    </select>
+                </div>
+
+                <div class="candidates-grid">
+                    <div class="candidate-card">
+                        <div class="candidate-header">
+                            <div class="candidate-avatar large">JS</div>
+                            <div class="candidate-info">
+                                <h3>John Smith</h3>
+                                <p>Frontend Developer</p>
+                                <p>San Francisco, CA</p>
+                            </div>
+                        </div>
+                        <div class="candidate-skills">
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">CSS</span>
+                        </div>
+                        <div class="candidate-actions">
+                            <button class="btn btn-outline btn-sm">View Profile</button>
+                            <button class="btn btn-primary btn-sm">Contact</button>
+                        </div>
+                    </div>
+
+                    <div class="candidate-card">
+                        <div class="candidate-header">
+                            <div class="candidate-avatar large">EJ</div>
+                            <div class="candidate-info">
+                                <h3>Emily Johnson</h3>
+                                <p>UX Designer</p>
+                                <p>New York, NY</p>
+                            </div>
+                        </div>
+                        <div class="candidate-skills">
+                            <span class="skill-tag">Figma</span>
+                            <span class="skill-tag">Sketch</span>
+                            <span class="skill-tag">Prototyping</span>
+                        </div>
+                        <div class="candidate-actions">
+                            <button class="btn btn-outline btn-sm">View Profile</button>
+                            <button class="btn btn-primary btn-sm">Contact</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Recruitment Analytics</h2>
+                    <p>Track your hiring performance and metrics</p>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Application Trends</h3>
+                        <div class="chart-placeholder">
+                            <div class="chart-bar" style="height: 60%">
+                                <span class="chart-label">Jan</span>
+                            </div>
+                            <div class="chart-bar" style="height: 80%">
+                                <span class="chart-label">Feb</span>
+                            </div>
+                            <div class="chart-bar" style="height: 100%">
+                                <span class="chart-label">Mar</span>
+                            </div>
+                            <div class="chart-bar" style="height: 75%">
+                                <span class="chart-label">Apr</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <h3>Hiring Funnel</h3>
+                        <div class="funnel-stats">
+                            <div class="funnel-item">
+                                <span class="funnel-label">Applications</span>
+                                <span class="funnel-number">156</span>
+                            </div>
+                            <div class="funnel-item">
+                                <span class="funnel-label">Screened</span>
+                                <span class="funnel-number">89</span>
+                            </div>
+                            <div class="funnel-item">
+                                <span class="funnel-label">Interviewed</span>
+                                <span class="funnel-number">34</span>
+                            </div>
+                            <div class="funnel-item">
+                                <span class="funnel-label">Hired</span>
+                                <span class="funnel-number">8</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <h3>Time to Hire</h3>
+                        <div class="metric-display">
+                            <div class="metric-number">18</div>
+                            <div class="metric-label">Average Days</div>
+                        </div>
+                        <p class="metric-trend">↓ 3 days faster than last month</p>
+                    </div>
+
+                    <div class="analytics-card">
+                        <h3>Top Skills in Demand</h3>
+                        <div class="skills-demand">
+                            <div class="demand-item">
+                                <span class="skill-name">JavaScript</span>
+                                <div class="demand-bar">
+                                    <div class="demand-fill" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="demand-item">
+                                <span class="skill-name">React</span>
+                                <div class="demand-bar">
+                                    <div class="demand-fill" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="demand-item">
+                                <span class="skill-name">Python</span>
+                                <div class="demand-bar">
+                                    <div class="demand-fill" style="width: 60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Company Settings</h2>
+                    <p>Manage your company profile and preferences</p>
+                </div>
+
+                <div class="settings-form">
+                    <div class="form-section">
+                        <h3>Company Information</h3>
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input type="text" value="TechCorp Inc.">
+                        </div>
+                        <div class="form-group">
+                            <label>Company Description</label>
+                            <textarea rows="4">Leading technology company focused on innovation and growth.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Website</label>
+                            <input type="url" value="https://techcorp.com">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Notification Preferences</h3>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                                Email notifications for new applications
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                                Weekly analytics reports
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                SMS notifications for urgent updates
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary">Save Settings</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- New Job Modal -->
+    <div id="newJobModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Post New Job</h3>
+                <span class="close" onclick="closeModal('newJobModal')">&times;</span>
+            </div>
+            <form class="job-form">
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input type="text" placeholder="e.g. Senior Frontend Developer" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Department</label>
+                        <select required>
+                            <option value="">Select Department</option>
+                            <option>Engineering</option>
+                            <option>Design</option>
+                            <option>Product</option>
+                            <option>Marketing</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Employment Type</label>
+                        <select required>
+                            <option value="">Select Type</option>
+                            <option>Full-time</option>
+                            <option>Part-time</option>
+                            <option>Contract</option>
+                            <option>Internship</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Job Description</label>
+                    <textarea rows="6" placeholder="Describe the role, responsibilities, and requirements..." required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Salary Range</label>
+                        <input type="text" placeholder="e.g. $80,000 - $120,000">
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" placeholder="e.g. San Francisco, CA or Remote">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Required Skills</label>
+                    <input type="text" placeholder="Add skills separated by commas">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('newJobModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Post Job</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="./script.js"></script>
+</body>
+</html>
